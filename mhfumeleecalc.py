@@ -27,7 +27,13 @@ elmvar = 1.0625
 
 #element check - is there one?
 
-#
+#derive elemental sharpness from raw sharpness
+
+#elmzone
+
+#divider is always 10.
+
+#elmvar
 
 #raw damage formula
 def melee_calc(atp, atk_type, sharp, hitzone, defence, rage, var, wep_class): 
