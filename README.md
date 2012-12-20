@@ -14,3 +14,5 @@ This is intended to replace the scripts hosted on reign-of-the-rathalos.com, whi
 There will also be improvements - an account system to log in and keep profiles of frequently used weapons, the ability to check up to four weapons against one monster.
 
 Original features will be kept, with modifications - such as as well as a top list of recommended weapons, also recommendations from saved profiles of weaponry.
+
+Formulas for 3rd gen(Tri, Portable 3rd etc) will be added in the future.
