@@ -1,5 +1,9 @@
 MHDC - A Monster Hunter Freedom Unite damage calculator
 
+Version 0.2
+
+* All three basic formulas for Freedom Unite are now implemented.
+
 Version 0.1.5
 
 * Implementation of the bow damage formula (Incomplete, needs support for multiple arrows)
