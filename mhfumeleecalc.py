@@ -3,14 +3,36 @@ from itertools import chain
 
 #: The weapon classes
 WEAPON_CLASSES = {
-    1.4: ("Sword and Shield", "SnS", "Dual Swords", "DS"),
+    1.4: ("Sword and Shield", "SS", "Dual Swords", "DS"),
     2.3: ("Lance", "L", "Gunlance", "GL"),
     4.8: ("Long Sword", "LS", "Great Sword", "GS"),
     5.2: ("Hammer", "H", "Hunting Horn", "HH"),
 }
 
-#: Each of the short weapon identifiersdddddd
+#: Each of the short weapon identifiers
 WEAPON_CLASS_IDS = [w for w in chain(*WEAPON_CLASSES.values()) if len(w) <= 2]
+
+def select_weapon_class(name):
+    """Select a weapon class from a given name"""
+    for weapon_class, weapon_names in WEAPON_CLASSES.items():
+        if name in weapon_names:
+            return weapon_class
+
+    # Raise an error if a nonexisted weapon was selected
+    raise KeyError("Selected weapon does not exist ({})".format(weapon))
+
+def melee_calc(atp, atk_type, sharp, hitzone, defence, rage, var, weapon_class):
+    """Calculates the melee damage"""
+    damage = (atp * atk_type * sharp * hitzone * defence * rage * var)
+    return damage / select_weapon_class(weapon_class)
+
+def element_calc(element, esharp, elmzone, divider):
+    """Calculates the elemental damage"""
+    return ((element * esharp * elmzone) / divider)
+
+def total(melee, elemental):
+    """The total damage"""
+    return floor(raw_total + elm_total)
 
 #HR + Monster check
 defence = 1.0
@@ -24,19 +46,8 @@ hitzone = 0.80
 print "What is the attack power of the weapon: "
 atp = int(raw_input("> "))
 
-def input_weapon_class():
-    print "What is the weapons class?"
-    weapon = raw_input("[{}] > ".format(", ".join(WEAPON_CLASS_IDS)))
-    
-    # Find the weapon that has been selected
-    for weapon_class, weapon_names in WEAPON_CLASSES.items():
-        if weapon in weapon_names:
-            return weapon_class
-
-    # Raise an error if a nonexisted weapon was selected
-    raise KeyError("Selected weapon does not exist ({})".format(weapon))
-
-weapon_class = input_weapon_class()
+print "What is the weapons class?", "[" + ", ".join(WEAPON_CLASS_IDS) + "]"
+weapon_class = raw_input("> ")
 
 #attack type check - assume strongest attack for now. add in support for averaging the attacks out later.
 atk_type = 0.18
@@ -57,22 +68,10 @@ divider = 10
 #elmvar
 elmvar = 1.0625
 
-#raw damage formula
-def melee_calc(atp, atk_type, sharp, hitzone, defence, rage, var, weapon_class):
-    return ((atp * atk_type * sharp * hitzone * defence * rage * var) / weapon_class)
- 
-#element damage formula
-def element_calc(element, esharp, elmzone, divider):
-    return ((element * esharp * elmzone) / divider)
-
 raw_total = melee_calc(atp, atk_type, sharp, hitzone, defence, rage, var, weapon_class)    
-
-print raw_total
-
 elm_total = element_calc(element, esharp, elmzone, divider)
 
-print elm_total
-
-total = floor(raw_total + elm_total)
-
-print total
+print
+print "Total melee damage:", raw_total
+print "Total elemental damage:", elm_total
+print "Total damage:", total(raw_total, elm_total)
